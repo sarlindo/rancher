@@ -1,0 +1,14 @@
+---
+- hosts: masternodes
+  remote_user: vagrant
+  become: yes
+  become_method: sudo
+  roles:
+    - rancherserver
+
+- hosts: slavenodes
+  remote_user: vagrant
+  become: yes
+  become_method: sudo
+  roles:
+      - rancherclient

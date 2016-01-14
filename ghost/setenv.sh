@@ -1,0 +1,4 @@
+# Set the url that Rancher is on
+export RANCHER_URL=http://192.168.8.100:8383/
+export RANCHER_ACCESS_KEY=B299EECCC76F2CC30BD3 
+export RANCHER_SECRET_KEY=j9K3t5jFkoXkqqFwHWM97bn8Fa5WSBdciuWTdu12

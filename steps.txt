@@ -1,0 +1,16 @@
+Step 1: vagrant up
+Step 2: navigate to rancher ui and turn on authentication local
+Step 3: add a new user dev1 and a simple user
+Step 4: change “default” environment name to “dev” instead
+Step 5: add new api keys
+Step 6: add those keys to the setenv.sh script
+Step 7: add hosts
+
+storage:
+
+sudo docker run -e CATTLE_HOST_LABELS='type=storageserver' -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://192.168.8.100:8383/v1/scripts/7B124CAEC23EE6377180:1450382400000:uMQFpSCNhUrootdqeArxA81GN2Q
+
+appservers:
+
+sudo docker run -e CATTLE_HOST_LABELS='type=appserver' -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://192.168.8.100:8383/v1/scripts/7B124CAEC23EE6377180:1450382400000:uMQFpSCNhUrootdqeArxA81GN2Q
+

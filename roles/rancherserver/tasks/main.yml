@@ -1,0 +1,22 @@
+- name: update hosts file
+  template: src=../../common/templates/hosts.j2 dest=/etc/hosts
+
+- name: add an apt key from ubuntu keyserver 
+  apt_key: keyserver=keyserver.ubuntu.com id=E56151BF
+
+- name: update cache
+  apt: update_cache=yes
+
+- name: add an apt signing key from mit for docker
+  apt_key: keyserver=hkp://pgp.mit.edu:80 id=58118E89F3A912897C070ADBF76221572C52609D
+
+- name: add docker repo
+  apt_repository: repo="deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main" state=present
+
+- name: install docker
+  apt: pkg=docker-engine
+
+- name: rancher server container
+  shell:
+    docker stop rancher-server;docker rm rancher-server;docker rmi rancher/server;
+    docker run --name=rancher-server -l io.rancher.container.system=rancher-agent --restart=always -d -v /data/rancherserver/mysql/:/var/lib/mysql/ -p 8383:8080 rancher/server

@@ -1,0 +1,17 @@
+- name: update cache
+  apt: update_cache=yes
+
+- name: install nfs server
+  apt: pkg=nfs-kernel-server
+
+- name: Create directory
+  file: path=/data/nfs state=directory owner=nobody group=nogroup
+
+- name: add nfs export to exports file
+  lineinfile: dest=/etc/exports create=yes line="/data/nfs rancher-agent2(rw,sync,no_root_squash,no_subtree_check)"
+
+- name: start nfs server
+  service: name=nfs-kernel-server state=started enabled=yes
+
+- name: load exports
+  command: exportfs -a

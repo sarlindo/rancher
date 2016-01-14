@@ -1,0 +1,26 @@
+- name: update hosts file
+  template: src=../../common/templates/hosts.j2 dest=/etc/hosts
+
+- name: add an apt key from ubuntu keyserver
+  apt_key: keyserver=keyserver.ubuntu.com id=E56151BF
+
+- name: update cache
+  apt: update_cache=yes
+
+- name: add an apt signing key from mit for docker
+  apt_key: keyserver=hkp://pgp.mit.edu:80 id=58118E89F3A912897C070ADBF76221572C52609D
+
+- name: add docker repo
+  apt_repository: repo="deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main" state=present
+
+- name: install docker
+  apt: pkg=docker-engine
+
+#- name: rancher agent node container
+#  shell:
+    # NEED to add from rancher server manually to get KEY
+
+    #docker stop rancher-agent;docker rm rancher-agent;docker rmi rancher/agent;
+    #docker stop rancher-agent;docker rm rancher-agent;
+    #docker run --name=rancher-agent -e CATTLE_AGENT_IP=192.168.8.101 -v /var/run/docker.sock:/var/run/docker.sock rancher/agent http://192.168.8.100:8383
+

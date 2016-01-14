@@ -1,0 +1,10 @@
+ghost:
+  image: ghost:0.7.1
+  ports:
+    - 2368:2368
+  #volume_driver: convoy
+  volumes:
+    - /data/nfs:/var/lib/ghost
+  labels:
+    io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}}/$${service_name}}
+    io.rancher.scheduler.affinity:host_label: type=appserver

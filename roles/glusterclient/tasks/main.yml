@@ -1,0 +1,20 @@
+- name: update hosts file
+  template: src=../../common/templates/hosts.j2 dest=/etc/hosts
+
+- name: install software-properties-common
+  apt: pkg=software-properties-common
+
+- name: add gluster repo
+  apt_repository: repo="ppa:gluster/glusterfs-3.7"
+
+- name: update cache
+  apt: update_cache=yes
+
+- name: install gluster
+  apt: pkg=glusterfs-client state=latest
+
+- name: Create directory
+  file: path=/data state=directory
+
+- name: Ensure the Gluster volume is mounted.
+  mount: name=/data src=node1:/glusterVolume0 fstype=glusterfs state=mounted

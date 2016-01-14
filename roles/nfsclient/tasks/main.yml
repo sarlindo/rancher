@@ -1,0 +1,11 @@
+- name: update cache
+  apt: update_cache=yes
+
+- name: install nfs server
+  apt: pkg=nfs-common
+
+- name: Create directory
+  file: path=/data/nfs state=directory
+
+ - name: Ensure the Gluster volume is mounted.
+   mount: name="/data/nfs" src="rancher-agent1:/data/nfs" opts="defaults,_netdev" state=mounted
